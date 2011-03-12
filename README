@@ -1,0 +1,23 @@
+=== gtd-task-transfer ===
+Contributors: Erich Schroeter
+
+GTD Task Transfer is an application that allows GTD application users to transfer
+their task data between other GTD applications.
+
+== Description ==
+The reason this exists is because I wanted to start using a GTD application, but
+didn't want all my data to be stuck with that one application. So, I needed a way
+to easily transfer data (if the GTD application supports exporting data to a CSV
+format) from one app to another while I was trying out different GTD applications.
+
+== Usage ==
+Example:
+    
+== Installation ==
+I developed this project in Linux (Ubuntu 10.04) with Python 2.6.5.
+
+ = Prerequisites =
+ The following libraries or programs were what I used.
+
+ - Python 2.6.5     (perhaps > 2.6.5, but I haven't tested it)
+
