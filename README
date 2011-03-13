@@ -10,14 +10,35 @@ didn't want all my data to be stuck with that one application. So, I needed a wa
 to easily transfer data (if the GTD application supports exporting data to a CSV
 format) from one app to another while I was trying out different GTD applications.
 
+As of the last update of this README (2011-03-12), only importing data from a CSV
+file into TaskWarrior is supported.  I have written the script in such a way that
+it should be self-explanatory to add future functionality.
+
 == Usage ==
 Example:
+    To list supported file types:
+    ./gtd-task-transfer import -h
+
+    To list supported GTD applications:
+    ./gtd-task-transfer import csv -h
+
+    To list supported TaskWarrior fields to import:
+    ./gtd-task-transfer import csv /path/to/exported/tasks.csv taskwarrior -h
+
+    To preview what will be called to import tasks:
+    ./gtd-task-transfer import --preview csv /path/to/exported/tasks.csv taskwarrior -d 0 -P 1 -p 2
+
+    To perform the import:
+    ./gtd-task-transfer import csv /path/to/exported/tasks.csv taskwarrior -d 0 -P 1 -p 2
     
 == Installation ==
-I developed this project in Linux (Ubuntu 10.04) with Python 2.6.5.
+I developed this project in Linux (Ubuntu 10.04) with Python 2.6.5 and 2.7. The
+only installation is to copy the gtd-task-transfer.py file to a place you can
+execute it, and follow the examples above.
 
  = Prerequisites =
  The following libraries or programs were what I used.
 
- - Python 2.6.5     (perhaps > 2.6.5, but I haven't tested it)
+ - Python 2.7       (perhaps > 2.7, but I haven't tested it)
+    - uses argparse and subprocess.call
 
