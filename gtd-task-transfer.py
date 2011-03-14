@@ -19,6 +19,7 @@ def main():
     # Create a parser for importing tasks to different GTD apps (i.e. ThinkingRock, TaskWarrior, etc)
     parser_import = subparsers.add_parser('import', help='Import task data to a GTD application')
     parser_import.add_argument('--preview', help='Preview what will be imported', action='store_true', default=False)
+    parser_import.add_argument('--confirm', help='Confirm each task that will be imported', action='store_true', default=False)
 
     # Create a subparser for each file type to support
     file_type_list = parser_import.add_subparsers(title='Import file type', description='Supported file types')
@@ -63,15 +64,15 @@ def import_to_taskwarrior_wrapper(args):
     map[args.description] = 'description'
     map[args.project] = 'project'
     map[args.priority] = 'priority'
-    map[args.status] = 'status'
-    map[args.entered] = 'entered'
+    #map[args.status] = 'status'
+    #map[args.entered] = 'entered'
     tasks = get_tasks_from_csv(args.file, map)
-    import_to_taskwarrior(tasks, args.preview)
+    import_to_taskwarrior(tasks, args.confirm, args.preview)
 
 #   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   #
 #   Commands                                                                #
 #   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   #
-def import_to_taskwarrior(tasks, preview=False):
+def import_to_taskwarrior(tasks, confirm=False, preview=False):
     '''
     Imports the given list of tasks into TaskWarrior.
 
@@ -84,6 +85,7 @@ def import_to_taskwarrior(tasks, preview=False):
     priority = 'priority:' + tasks[0].priority
     call(['task', 'add', description, project, priority])
     '''
+    num_imported = 0
     for task in tasks:
         description = task.description
         project = 'project:' + task.project
@@ -91,12 +93,19 @@ def import_to_taskwarrior(tasks, preview=False):
         if preview:
             print 'task add ' + description + ' ' + project + ' ' + priority
         else:
-            call(['task', 'add', description, project, priority])
+            if confirm:
+                response = raw_input('add <' + description + '>? (y/n)')
+                if response == 'y':
+                    call(['task', 'add', description, project, priority])
+                    num_imported += 1
+            else:
+                call(['task', 'add', description, project, priority])
+                num_imported += 1
     
     if preview:
         print str(len(tasks)) + ' tasks will be imported into TaskWarrior'
     else:
-        print str(len(tasks)) + ' tasks imported into TaskWarrior'
+        print str(num_imported) + ' tasks imported into TaskWarrior'
 
 #   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   #
 #   Helpers                                                                 #
