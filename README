@@ -36,6 +36,14 @@ I developed this project in Linux (Ubuntu 10.04) with Python 2.6.5 and 2.7. The
 only installation is to copy the gtd-task-transfer.py file to a place you can
 execute it, and follow the examples above.
 
+ = Install Python 2.7 in Ubuntu 10.04 =
+    download the tar from http://www.python.org/download/releases/2.7.1/
+    tar xzf Python-2.7.tgz
+    cd Python-2.7
+    ./configure
+    make
+    sudo make altinstall
+
  = Prerequisites =
  The following libraries or programs were what I used.
 
